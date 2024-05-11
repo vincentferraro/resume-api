@@ -9,11 +9,12 @@ def get_user_by_name(db: Session, name: str):
     return db.query(models.User).filter(models.User.name == name).first()
 
 
-def get_work_history_by_company_name(db: Session, company_name: str):
-    return db.query(models.WorkHistory).filter(models.WorkHistory.company_name == company_name).first()
-
 def get_users(db:Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
+
+
+def get_work_history_by_id(db: Session, work_history_id: int):
+    return db.query(models.WorkHistory).filter(models.WorkHistory.id == work_history_id).first()
 
 def get_work_histories(db:Session, skip: int = 0, limit : int = 100):
     return db.query(models.WorkHistory).offset(skip).limit(limit).all()
@@ -36,5 +37,3 @@ def create_work_history(db:Session, work_history: schema.WorkHistoryBase):
     db.refresh(db_work_history)
     return db_work_history
 
-
-# TO DO: Resume create work history https://fastapi.tiangolo.com/tutorial/sql-databases/#read-data

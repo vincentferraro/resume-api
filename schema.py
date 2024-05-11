@@ -14,7 +14,6 @@ class WorkHistoryCreate(WorkHistoryBase):
 
 class WorkHistory(WorkHistoryBase):
     id: int
-    user_id: int
 
     class Config:
         orm_mode = True
@@ -31,7 +30,7 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    workhistory: list[WorkHistory] = []
+
 
     class Config:
         orm_mode = True
