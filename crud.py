@@ -37,3 +37,37 @@ def create_work_history(db:Session, work_history: schema.WorkHistoryBase):
     db.refresh(db_work_history)
     return db_work_history
 
+
+
+def update_user(db: Session, user_id: int, user: schema.UserUpdate):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if db_user is None:
+        return None
+    if user.name:
+        db_user.name = user.name
+    if user.lastname:
+        db_user.lastname = user.lastname
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+    
+
+def update_work_history(db: Session, work_history_id: int, work_history: schema.WorkHistoryUpdate):
+    db_work_history = db.query(models.WorkHistory).filter(models.WorkHistory.id == work_history_id).first()
+    if db_work_history is None:
+        return None
+    if work_history.company_name:
+        db_work_history.company_name = work_history.company_name
+    if work_history.start_date:
+        db_work_history.start_date = work_history.start_date
+    if work_history.end_date:
+        db_work_history.end_date = work_history.end_date
+    if work_history.role:
+        db_work_history.role = work_history.role
+    if work_history.description:
+        db_work_history.description = work_history.description
+    db.add(db_work_history)
+    db.commit()
+    db.refresh(db_work_history)
+    return db_work_history

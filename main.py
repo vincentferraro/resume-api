@@ -67,6 +67,19 @@ def create_work_history(work_history: schema.WorkHistoryCreate, db: Session = De
     return work_history
 
 
+@app.put("/users/{user_id}", response_model=schema.User)
+def update_user(user_id: int, user: schema.UserUpdate, db : Session = Depends(get_db)):
+    user = crud.update_user(db, user_id = user_id, user = user)
+    if user is None:
+        raise HTTPException(status_code=404, details= "User id not found")
+    return user
+
+@app.put("/work_history/{work_history_id}", response_model= schema.WorkHistory)
+def update_work_history(work_history_id:int, work_history: schema.WorkHistoryUpdate, db : Session = Depends(get_db)):
+    work_history = crud.update_work_history(db, work_history_id=work_history_id, work_history=work_history)
+    if work_history is None:
+        raise HTTPException(status_code=404, detail="Work history id not found")
+    return work_history
 
 @app.get("/")
 def read_root():
