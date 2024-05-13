@@ -1,6 +1,10 @@
-from typing import Union, Optional
+from typing import Union, Optional, List
 
 from pydantic import BaseModel
+
+class UserBase(BaseModel):
+    name:str
+    lastname:str
 
 class WorkHistoryBase(BaseModel):
     company_name:str
@@ -8,9 +12,15 @@ class WorkHistoryBase(BaseModel):
     end_date: str
     role: str
     description: str
+    user_id: int
 
-class WorkHistoryCreate(WorkHistoryBase):
-    pass
+class WorkHistoryCreate(BaseModel):
+    company_name:str
+    start_date: str
+    end_date: str
+    role: str
+    description: str
+    user_id: int
 
 class WorkHistory(WorkHistoryBase):
     id: int
@@ -19,9 +29,6 @@ class WorkHistory(WorkHistoryBase):
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    name:str
-    lastname:str
 
 
 class UserCreate(UserBase):
@@ -31,7 +38,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
 
-
+    works: list[WorkHistory] = []
     class Config:
         orm_mode = True
 

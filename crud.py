@@ -26,12 +26,13 @@ def create_user(db: Session, user: schema.UserBase):
     db.refresh(db_user)
     return db_user
 
-def create_work_history(db:Session, work_history: schema.WorkHistoryBase):
+def create_work_history(db:Session, work_history: schema.WorkHistoryCreate):
     db_work_history = models.WorkHistory(company_name=work_history.company_name, 
                                          start_date=work_history.start_date,
                                          end_date=work_history.end_date, 
                                          role=work_history.role,
-                                         description=work_history.description)
+                                         description=work_history.description,
+                                         user_id=work_history.user_id)
     db.add(db_work_history)
     db.commit()
     db.refresh(db_work_history)

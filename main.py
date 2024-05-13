@@ -55,10 +55,11 @@ def read_work_histories(skip : int = 0, limit: int = 100, db: Session = Depends(
     return work_histories
 
 @app.get("/work_history/{work_history_id}", response_model=schema.WorkHistory)
-def read_work_history_by_id(work_history_id : int, db: Session = Depends(get_db)):
+async def read_work_history_by_id(work_history_id : int, db: Session = Depends(get_db)):
     work_history = crud.get_work_history_by_id(db,work_history_id)
     if work_history is None:
         raise HTTPException(status_code=404, detail= "Work history not found")
+    print(work_history.__str__)
     return work_history
 
 @app.post("/work_history/", response_model=schema.WorkHistory)
@@ -84,3 +85,6 @@ def update_work_history(work_history_id:int, work_history: schema.WorkHistoryUpd
 @app.get("/")
 def read_root():
     return { "Hello world "}
+
+# TO DO: Organize routes and create relationship between 2 tables
+

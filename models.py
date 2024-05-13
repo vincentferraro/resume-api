@@ -1,5 +1,6 @@
 from sqlalchemy import  Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped,  mapped_column
+from typing import List
 from .db import Base
 
 class User(Base):
@@ -9,7 +10,7 @@ class User(Base):
     name= Column(String,index=True)
     lastname=Column(String)
 
-    # works=relationship("WorkHistory", back_populates="user")
+    works: Mapped[List["WorkHistory"]] = relationship(back_populates="user")
 
 class WorkHistory(Base):
     __tablename__="work_history"
@@ -21,4 +22,6 @@ class WorkHistory(Base):
     role=Column(String)
     description=Column(String)
 
-    # user=relationship("User",back_populates="work_history")
+    user_id : Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user : Mapped["User"] = relationship(back_populates="works")
+    
