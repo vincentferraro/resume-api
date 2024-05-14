@@ -72,3 +72,8 @@ def update_work_history(db: Session, work_history_id: int, work_history: schema.
     db.commit()
     db.refresh(db_work_history)
     return db_work_history
+
+
+def read_educations(db: Session, skip: int = 0, limit:int = 100):
+    return db.query(models.Education).offset(skip).limit(limit).all()
+    

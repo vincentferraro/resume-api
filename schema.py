@@ -53,3 +53,26 @@ class WorkHistoryUpdate(BaseModel):
     end_date: Optional[str] = None
     role: Optional[str] = None
     description: Optional[str] = None
+
+
+class EducationBase(BaseModel):
+    title: str
+    school:str
+    year: str
+    user_id:int
+
+class EducationCreate(EducationBase):
+    pass 
+
+class Education(EducationBase):
+    id: int
+    class Config:
+        orm_mode = True
+
+
+
+class EducationUpdate(BaseModel):
+    title: Optional[str] = None
+    school: Optional[str] = None
+    year: Optional[str] = None
+

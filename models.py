@@ -11,6 +11,8 @@ class User(Base):
     lastname=Column(String)
 
     works: Mapped[List["WorkHistory"]] = relationship(back_populates="user")
+    # educations : Mapped[List["Education"]] = relationship(back_populates="education")
+
 
 class WorkHistory(Base):
     __tablename__="work_history"
@@ -25,3 +27,14 @@ class WorkHistory(Base):
     user_id : Mapped[int] = mapped_column(ForeignKey("users.id"))
     user : Mapped["User"] = relationship(back_populates="works")
     
+
+class Education(Base):
+    __tablename__="educations"
+
+    id=Column(Integer,primary_key=True)
+    title=Column(String)
+    school=Column(String)
+    year=Column(String)
+    
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    # user: Mapped["User"] = relationship(back_populates="users")
