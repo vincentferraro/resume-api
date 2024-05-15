@@ -95,3 +95,28 @@ def get_educations(skip:int=0, limit: int=100,db: Session=Depends(get_db)):
     educations = crud.read_educations(db,skip,limit)
     return educations
 
+@app.get("/educations/{education_id}", response_model=schema.Education)
+def get_education_by_id(education_id:int, db: Session = Depends(get_db)):
+    education = crud.read_education_by_id(db, education_id)
+    if education is None:
+        raise HTTPException(404,"Education id not found")
+    return education
+
+@app.post("/educations/",response_model=schema.Education)
+def create_education(education:schema.EducationBase,db:Session=Depends(get_db)):
+    education = crud.create_education(db, education)
+    return education
+
+@app.put("/educations/{education_id}", response_model=schema.Education)
+def update_education(education_id:int, education:schema.EducationUpdate, db: Session = Depends(get_db)):
+    education = crud.update_education(db, education_id, education)
+    if education is None:
+        raise HTTPException(404, "Education not found")
+    return education
+
+@app.delete("/education/{education_id}" ,response_model=str)
+def delete_education(education_id:int, db:Session = Depends(get_db)):
+    education = crud.delete_education(db, education_id)
+    if education is None:
+        raise HTTPException(404, "education id not found")
+    return "education id ", education_id," successfully deleted"

@@ -30,6 +30,13 @@ class WorkHistory(WorkHistoryBase):
 
 
 
+class WorkHistoryUpdate(BaseModel):
+    company_name: Optional[str] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    role: Optional[str] = None
+    description: Optional[str] = None
+
 
 class UserCreate(UserBase):
     pass
@@ -47,14 +54,7 @@ class UserUpdate(BaseModel):
     name: Optional[str] = None
     lastname: Optional[str] = None
 
-class WorkHistoryUpdate(BaseModel):
-    company_name: Optional[str] = None
-    start_date: Optional[str] = None
-    end_date: Optional[str] = None
-    role: Optional[str] = None
-    description: Optional[str] = None
-
-
+# Education
 class EducationBase(BaseModel):
     title: str
     school:str
