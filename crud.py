@@ -86,7 +86,8 @@ def read_education_by_id(db:Session, education_id:int):
 def create_education(db:Session,education:schema.EducationBase):
     db_education = models.Education(title=education.title,
                                     school=education.school,
-                                    year=education.year)
+                                    year=education.year,
+                                    user_id=education.user_id)
     db.add(db_education)
     db.commit()
     db.refresh(db_education)

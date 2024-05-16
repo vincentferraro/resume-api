@@ -114,9 +114,9 @@ def update_education(education_id:int, education:schema.EducationUpdate, db: Ses
         raise HTTPException(404, "Education not found")
     return education
 
-@app.delete("/education/{education_id}" ,response_model=str)
+@app.delete("/education/{education_id}")
 def delete_education(education_id:int, db:Session = Depends(get_db)):
     education = crud.delete_education(db, education_id)
     if education is None:
         raise HTTPException(404, "education id not found")
-    return "education id ", education_id," successfully deleted"
+    return "education id " +str(education_id)+" successfully deleted"

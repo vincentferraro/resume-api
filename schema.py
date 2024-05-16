@@ -2,9 +2,6 @@ from typing import Union, Optional, List
 
 from pydantic import BaseModel
 
-class UserBase(BaseModel):
-    name:str
-    lastname:str
 
 class WorkHistoryBase(BaseModel):
     company_name:str
@@ -38,21 +35,6 @@ class WorkHistoryUpdate(BaseModel):
     description: Optional[str] = None
 
 
-class UserCreate(UserBase):
-    pass
-
-
-class User(UserBase):
-    id: int
-
-    works: list[WorkHistory] = []
-    class Config:
-        orm_mode = True
-
-
-class UserUpdate(BaseModel):
-    name: Optional[str] = None
-    lastname: Optional[str] = None
 
 # Education
 class EducationBase(BaseModel):
@@ -64,15 +46,37 @@ class EducationBase(BaseModel):
 class EducationCreate(EducationBase):
     pass 
 
+
+
+class EducationUpdate(BaseModel):
+    title: Optional[str] = None
+    school: Optional[str] = None
+    year: Optional[int] = None
+
+
 class Education(EducationBase):
     id: int
     class Config:
         orm_mode = True
 
 
+class UserBase(BaseModel):
+    name:str
+    lastname:str
 
-class EducationUpdate(BaseModel):
-    title: Optional[str] = None
-    school: Optional[str] = None
-    year: Optional[str] = None
+class User(UserBase):
+    id: int
+
+    works: list[WorkHistory] = []
+    educations:list[Education] =[]
+    class Config:
+        orm_mode = True
+
+
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    lastname: Optional[str] = None
+    
+class UserCreate(UserBase):
+    pass
 
