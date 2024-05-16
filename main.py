@@ -120,3 +120,35 @@ def delete_education(education_id:int, db:Session = Depends(get_db)):
     if education is None:
         raise HTTPException(404, "education id not found")
     return "education id " +str(education_id)+" successfully deleted"
+
+
+@app.get("/skills/", response_model=list[schema.Skill])
+def read_skills(skip: int=0, limit: int = 100, db: Session = Depends(get_db)):
+    skills = crud.read_skills(db, skip, limit)
+    return skills
+
+@app.get("/skills/{skill_id}", response_model=schema.Skill)
+def read_skill(skill_id: int, db: Session = Depends(get_db)):
+    skill = crud.read_skill_by_id(db, skill_id)
+    if skill is None:
+        raise HTTPException(404, "skill id not found")
+    return skill
+
+@app.post("/skills/", response_model= schema.Skill)
+def create_skill(skill: schema.SkillCreate, db: Session = Depends(get_db)):
+    skill = crud.create_skill(db, skill)
+    return skill
+
+@app.put("/skills/{skill_id}",response_model=schema.Skill)
+def update_skill(skill_id: int, skill: schema.SkillUpdate, db: Session = Depends(get_db)):
+    skill = crud.update_skill(db, skill_id, skill)
+    if skill is None:
+        raise HTTPException(404, 'skill id not found')
+    return skill
+
+@app.delete("/skills/{skill_id}", response_model= str)
+def delete_skill(skill_id: int, db : Session = Depends(get_db)):
+    skill = crud.delete_skill(db,skill_id)
+    if skill is None:
+        raise HTTPException(404," skill id not found")
+    return "skill id " +str(skill_id)+" successfully deleted"

@@ -73,6 +73,7 @@ def update_work_history(db: Session, work_history_id: int, work_history: schema.
     db.refresh(db_work_history)
     return db_work_history
 
+# Educations
 
 def read_educations(db: Session, skip: int = 0, limit:int = 100):
     return db.query(models.Education).offset(skip).limit(limit).all()
@@ -115,4 +116,43 @@ def delete_education(db:Session, education_id: int):
     db.delete(db_education)
     db.commit()
     # db.refresh(db) ? Need verification
+    return True
+
+# Skills
+
+def read_skills(db: Session, skip: int = 0, limit: int = 100):
+    skills = db.query(models.Skill).offset(skip).limit(limit).all()
+    return skills
+
+def read_skill_by_id(db:Session, skill_id:int):
+    skill = db.query(models.Skill).filter(models.Skill.id == skill_id).first()
+    if skill is None:
+        return None
+    return skill
+
+def create_skill(db: Session, skill: schema.SkillCreate):
+    db_skill = models.Skill(name=skill.name,
+                            user_id= skill.user_id)
+    db.add(db_skill)
+    db.commit()
+    db.refresh(db_skill)
+    return db_skill
+
+def update_skill(db:Session, skill_id: int, skill: schema.SkillUpdate):
+    db_skill = db.query(models.Skill).filter(models.Skill.id == skill_id).first()
+    if db_skill is None:
+        return None
+    if skill.name:
+        db_skill.name = skill.name
+    db.add(db_skill)
+    db.commit()
+    db.refresh(db_skill)
+    return db_skill
+
+def delete_skill(db: Session, skill_id: int):
+    db_skill = db.query(models.Skill).filter(models.Skill.id == skill_id).first()
+    if db_skill is None:
+        return None
+    db.delete(db_skill)
+    db.commit()
     return True

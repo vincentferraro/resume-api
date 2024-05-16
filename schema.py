@@ -59,6 +59,24 @@ class Education(EducationBase):
     class Config:
         orm_mode = True
 
+# SKILL
+        
+class SkillBase(BaseModel):
+    name: str
+    user_id: int
+
+class Skill(SkillBase):
+    id: int
+
+    class Config:
+        orm_mode:True
+
+class SkillCreate(BaseModel):
+    name:str
+    user_id:int
+
+class SkillUpdate(BaseModel):
+    name: Optional[str] = None
 
 class UserBase(BaseModel):
     name:str
@@ -76,7 +94,7 @@ class User(UserBase):
 class UserUpdate(BaseModel):
     name: Optional[str] = None
     lastname: Optional[str] = None
-    
+
 class UserCreate(UserBase):
     pass
 
