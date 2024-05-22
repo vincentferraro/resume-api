@@ -2,10 +2,10 @@
 from sqlalchemy import  Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, Mapped,  mapped_column
 from typing import List
+from .work_history import WorkHistory
+from .education import Education
+from .skill import Skill
 from ..db import Base
-# from .work_history import WorkHistory
-# from education import Education
-# from skill import Skill
 
 
 class User(Base):

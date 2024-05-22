@@ -2,7 +2,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from ..schemas import skill
 from ..db.crud import skills
-from ..db.dependency import get_db
+from ..db.db import get_db
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -10,8 +10,8 @@ router = APIRouter()
 
 @router.get("/skills/", response_model=list[skill.Skill])
 def read_skills(skip: int=0, limit: int = 100, db: Session = Depends(get_db)):
-    skills = skills.read_skills(db, skip, limit)
-    return skills
+    skill_list = skills.read_skills(db, skip, limit)
+    return skill_list
 
 @router.get("/skills/{skill_id}", response_model=skill.Skill)
 def read_skill(skill_id: int, db: Session = Depends(get_db)):

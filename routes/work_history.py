@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, APIRouter
-from ..db.dependency import get_db
+from ..db.db import get_db
 from ..db.crud import work_histories
 from ..schemas import work_history
 
