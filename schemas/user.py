@@ -6,8 +6,12 @@ from ..schemas.skill import Skill
 
 
 class UserBase(BaseModel):
-    name:str
-    lastname:str
+    name:str 
+    lastname:str 
+    location:str =None
+    email:str = None
+    linkedin:str = None
+    website:str = None
 
 class User(UserBase):
     id: int
@@ -22,6 +26,10 @@ class User(UserBase):
 class UserUpdate(BaseModel):
     name: Optional[str] = None
     lastname: Optional[str] = None
+    location:Optional[str] = None
+    email:Optional[str] = None
+    linkedin:Optional[str] = None
+    website:Optional[str] = None
 
 class UserCreate(UserBase):
     pass
