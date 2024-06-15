@@ -24,8 +24,6 @@ def update_username(db:Session, username_id : int, username: username.UsernameUp
         db_username.username = username.username
     if username.password :
         db_username.password = username.password
-    if username.token : 
-        db_username.token = username.token
 
 def delete_user(db:Session, username_id: int):
     db_username = db.query(Username).filter(Username.id == username_id).first()
