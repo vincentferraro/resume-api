@@ -16,7 +16,6 @@ async def read_work_history_by_id(work_history_id : int, db: Session = Depends(g
     work_history = work_histories.get_work_history_by_id(db,work_history_id)
     if work_history is None:
         raise HTTPException(status_code=404, detail= "Work history not found")
-    print(work_history.__str__)
     return work_history
 
 @router.post("/work_history/", response_model=work_history.WorkHistory)

@@ -8,7 +8,7 @@ class Username(Base):
     id = Column(Integer, primary_key=True)
 
     username = Column(String)
-    password = Column(String)
+    password = Column(String(128))
     token = Column(String)
 
     # user_id = Mapped[int] = mapped_column(ForeignKey("users.id"))

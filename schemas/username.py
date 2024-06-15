@@ -14,3 +14,7 @@ class Username(UsernameBase):
         orm_mode: True
 
 
+class UsernameUpdate(BaseModel):
+    username: Optional[str]= None
+    password: Optional[str] = None
+    token: Optional[str] = None

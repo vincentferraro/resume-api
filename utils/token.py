@@ -14,7 +14,7 @@ fake_data={
 def create_token(data:dict)-> str:
     duration_access_token = timedelta(minutes= ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
-        'username':data["username"],
+        'username':data.username,
         'exp': datetime.now(timezone.utc)+duration_access_token
     }
     token = jwt.encode(payload=payload,key= SECRET_KEY,algorithm=ALGORITHM)
