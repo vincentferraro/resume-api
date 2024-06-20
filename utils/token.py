@@ -29,9 +29,9 @@ def verify_valid_token(token:str,data:dict)-> bool:
     else: 
         return False
 
-def refresh_token(token: str,data:dict):
-    tok_user = jwt.decode(jwt=token, key = SECRET_KEY, algorithms=ALGORITHM)
-    if tok_user["username"] == data["username"]:
+def refresh_token(token: str,data):
+    payload = jwt.decode(jwt=token, key = SECRET_KEY, algorithms=ALGORITHM)
+    if payload["username"] == data.username:
         refresh_token = create_token(data)
     else:
         raise Exception("token invalid")
