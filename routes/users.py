@@ -7,8 +7,6 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-
-
 @router.put("/users/{user_id}", response_model=user.User)
 def update_user(user_id: int, user: user.UserUpdate, db : Session = Depends(get_db)):
     user = users.update_user(db, user_id = user_id, user = user)
@@ -29,7 +27,6 @@ def read_users(skip: int = 0, limit : int = 100, db: Session = Depends(get_db)):
     users_db = users.get_users(db, skip= skip, limit = limit)
     return users_db
     
-
 
 @router.get("/users/{user_id}", response_model=user.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):

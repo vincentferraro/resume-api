@@ -20,11 +20,11 @@ def create_token(data:dict)-> str:
     token = jwt.encode(payload=payload,key= SECRET_KEY,algorithm=ALGORITHM)
     return token
 
-def verify_valid_token(token:str,data:dict)-> bool:
+def verify_valid_token(token:str,username:str)-> bool:
     token = jwt.decode(jwt=token,key=SECRET_KEY, algorithms=ALGORITHM)
     now = int(datetime.now(timezone.utc).timestamp())
 
-    if token["username"]==data["username"] and now < token["exp"] :
+    if token["username"]==username and now < token["exp"] :
         return True
     else: 
         return False

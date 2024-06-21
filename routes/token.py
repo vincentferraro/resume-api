@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, Header
 from sqlalchemy.orm import Session
 from ..db.db import get_db
 from ..db.crud import usernames
-from typing import Annotated
 from ..utils import token as tokenutils
 
 router = APIRouter()
