@@ -1,5 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
+from typing import List
+
+
 from ..db import Base
 
 class Username(Base):
@@ -10,4 +13,4 @@ class Username(Base):
     username = Column(String)
     password = Column(String(128))
 
-    # user_id = Mapped[int] = mapped_column(ForeignKey("users.id"))
+

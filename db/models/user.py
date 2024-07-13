@@ -7,7 +7,7 @@ from .work_history import WorkHistory
 from .education import Education
 from .skill import Skill
 from .projects import Project
-
+from .username import Username
 
 class User(Base):
     __tablename__="users"
@@ -19,6 +19,7 @@ class User(Base):
     email=Column(String)
     linkedin=Column(String)
     website=Column(String)
+    username_id = Column(Integer,ForeignKey("usernames.id"))
 
     works: Mapped[List["WorkHistory"]] = relationship(back_populates="user")
     educations : Mapped[List["Education"]] = relationship(back_populates="user")

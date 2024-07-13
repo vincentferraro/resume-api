@@ -5,17 +5,18 @@ from fastapi import HTTPException, status
 # TOKEN
 SECRET_KEY = "864183de98efa7ffdac3cce9ebf1b4e4dcaa6d41d35139a333ffdcf4a369671a"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 3
+ACCESS_TOKEN_EXPIRE_MINUTES = 10
 
 fake_data={
     "username":'test'
 }
 
 
-def create_token(username:str)-> str:
+def create_token(username:str, username_id:str)-> str:
     duration_access_token = timedelta(minutes= ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {
         'username':username,
+        'username_id':username_id,
         'exp': datetime.now(timezone.utc)+duration_access_token
     }
     token = jwt.encode(payload=payload,key= SECRET_KEY,algorithm=ALGORITHM)
@@ -25,7 +26,7 @@ def create_token(username:str)-> str:
 def refresh_token(token: str):
     payload = jwt.decode(jwt=token, key = SECRET_KEY, algorithms=ALGORITHM)
     if payload["username"]:
-        refresh_token = create_token(payload["username"])
+        refresh_token = create_token(payload["username"],payload["username_id"])
     else:
         raise Exception("token invalid")
 

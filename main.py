@@ -27,7 +27,6 @@ def read_token(username: str = Depends(auth.token_check)):
     return { "token": username }
 
 
-
 app.include_router(users.router)
 app.include_router(skill.router)
 app.include_router(education.router)

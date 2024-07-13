@@ -14,7 +14,7 @@ def  read_username(username: str, password: str, db: Session = Depends(get_db)):
     if username_db is None or not genpwd.check_password(password,username_db.password):
         raise HTTPException(404,"username or password incorrect")
     
-    return {"access_token":jwt_utils.create_token(username_db.username),"token_type":"bearer"}
+    return {"access_token":jwt_utils.create_token(username_db.username, username_db.id),"token_type":"bearer"}
 
 
 @router.post("/register")

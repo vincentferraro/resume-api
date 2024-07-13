@@ -8,7 +8,7 @@ from ..schemas.skill import Skill
 class UserBase(BaseModel):
     name:str 
     lastname:str 
-    location:str =None
+    location:str = None
     email:str = None
     linkedin:str = None
     website:str = None
@@ -30,6 +30,7 @@ class UserUpdate(BaseModel):
     email:Optional[str] = None
     linkedin:Optional[str] = None
     website:Optional[str] = None
+    username_id:Optional[int] = None
 
 class UserCreate(UserBase):
     pass
