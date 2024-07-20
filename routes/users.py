@@ -20,11 +20,8 @@ def create_user(user: user.UserCreate, db: Session = Depends(get_db), token : di
     db_user = users.get_user_by_name(db, name=user.name)
     if db_user:
         raise HTTPException(status_code=400, detail="Name already registered")
-    # print("ICII",token["username_id"])
-    # user.username_id = int(token["username_id"])
-    # user["username_id"] = 1
-    user_to_db = user
-    user_to_db["username_id"] = 1
+    user_to_db = user.model_dump()
+    user_to_db["username_id"] = token
     return users.create_user(db= db, user = user_to_db)
 
 @router.get("/users/", response_model= list[user.User])

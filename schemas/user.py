@@ -14,8 +14,13 @@ class UserBase(BaseModel):
     website:str = None
 
 class User(UserBase):
-    id: int
-
+    name: Optional[str] = None
+    lastname: Optional[str] = None
+    location:Optional[str] = None
+    email:Optional[str] = None
+    linkedin:Optional[str] = None
+    website:Optional[str] = None
+    username_id:Optional[int] = None
     works: list[WorkHistory] = []
     educations:list[Education] =[]
     skills: list[Skill] = []
@@ -33,5 +38,5 @@ class UserUpdate(BaseModel):
     username_id:Optional[int] = None
 
 class UserCreate(UserBase):
-    pass
+    username_id:Optional[int] = None
 

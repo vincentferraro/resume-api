@@ -16,7 +16,6 @@ def  read_username(username: str, password: str, db: Session = Depends(get_db)):
     
     return {"access_token":jwt_utils.create_token(username_db.username, username_db.id),"token_type":"bearer"}
 
-
 @router.post("/register")
 def create_username(username: str, password: str, db: Session = Depends(get_db)):
     pwd = genpwd.hash_password(password)

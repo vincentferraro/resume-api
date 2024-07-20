@@ -40,8 +40,8 @@ def check_token(token):
     )
     try:
         token = jwt.decode(jwt=token,key=SECRET_KEY, algorithms=ALGORITHM)
-        username : str = token.get("username")
-        if username is None :
+        username_id : str = token.get("username_id")
+        if username_id is None :
             raise credentials_exception
     except jwt.ExpiredSignatureError:
         raise HTTPException(
@@ -51,4 +51,4 @@ def check_token(token):
         )
     except jwt.PyJWTError:
         raise credentials_exception
-    return username
+    return username_id

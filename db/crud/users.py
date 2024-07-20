@@ -16,22 +16,35 @@ def get_users(db:Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: user.UserBase):
-    db_user = User(name=user.name,lastname=user.lastname)
+    db_user = User(name=user["name"],
+                   lastname=user["lastname"],
+                   location= user["location"],
+                   email= user["email"],
+                   linkedin=user["linkedin"],
+                   website= user["website"],
+                   username_id=user["username_id"]
+                    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
 def update_user(db: Session, user_id: int, user: user.UserUpdate):
-    db_user = db.query(User).filter(User.id == user_id).first()
-    if db_user is None:
-        return None
-    if user.name:
-        db_user.name = user.name
-    if user.lastname:
-        db_user.lastname = user.lastname
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    try:
+        db_user = db.query(User).filter(User.id == user_id).first()
+        if db_user is None:
+            return None
+
+        user_data = user.model_dump(exclude_unset=True)
+
+        for key, value in user_data.items():
+            setattr(db_user, key, value)
+
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+    except :
+        print("Error occured in update_user")
+
     
